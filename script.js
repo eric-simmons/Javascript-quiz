@@ -2,16 +2,8 @@ var questionEl = document.getElementById("question")
 var startEl = document.getElementById("start")
 var timerEl = document.getElementById("timer")
 var content = document.getElementById("content")
-
 var answersEl = document.getElementById("answers")
-// var answer1 = document.getElementById("answer1")
-// var answer2 = document.getElementById("answer2")
-// var answer3 = document.getElementById("answer3")
-// var answer4 = document.getElementById("answer4")
 var btnCreate = document.createElement('button')
-
-
-
 var questionIndex = 0
 var currentTime = 76
 
@@ -47,14 +39,12 @@ var questionList = [
 ];
 
 //start game
-
 startEl.addEventListener('click', function startGame() {
     startEl.style.display = "none"
     answersEl.style.display = "initial"
     countdown();
     reset();
     displayQuestion();
-    // displayAnswers();
 });
 
 
@@ -66,44 +56,14 @@ function displayQuestion() {
         question.innerHTML = currentQuestion;
 
     }
-   
-currentChoices.forEach(function (newItem){
-    var listItem = document.createElement("button");
-    listItem.textContent = newItem;
-    content.appendChild(btnCreate);
-    answersEl.appendChild(listItem);
-    listItem.addEventListener("click", (answerCheck));
 
-
-})
-
-
- 
-
+    currentChoices.forEach(function (newItem) {
+        var listItem = document.createElement("button");
+        listItem.textContent = newItem;
+        answersEl.appendChild(listItem);
+        listItem.addEventListener("click", (answerCheck));
+    })
 }
-
-// function displayAnswers() {
-//     for (var i = 0; i < questionList.choices[0]; i++) {
-
-//         var answerButton = document.createElement('button')
-//         answerButton.innerHTML = questionList.choices[i]
-//         answerButton.addEventListener('click', answerCheck)
-//         answersEl.appendChild(answerButton)
-
-//         console.log(answerButton)
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
 
 
 function reset() {
@@ -130,7 +90,7 @@ function answerCheck(event) {
     if (questionList[questionIndex].answer === userAnswer.innerText) {
         console.log("correct")
     }
-    else(
+    else (
         console.log('incorrect')
     )
 }
