@@ -1,11 +1,33 @@
+// GIVEN I am taking a code quiz
+// WHEN I click the start button
+// THEN a timer starts and I am presented with a question
+// WHEN I answer a question
+// THEN I am presented with another question
+// WHEN I answer a question incorrectly
+// THEN time is subtracted from the clock
+// WHEN all questions are answered or the timer reaches 0
+// THEN the game is over
+// WHEN the game is over
+// THEN I can save my initials and score
+
+
+
+
+
 var questionEl = document.getElementById("question")
 var startEl = document.getElementById("start")
 var timerEl = document.getElementById("timer")
 var content = document.getElementById("content")
 var answersEl = document.getElementById("answers")
+
 var btnCreate = document.createElement('button')
+var isPaused = true
+
+
 var questionIndex = 0
 var currentTime = 76
+var timePenalty = 5
+
 
 answersEl.style.display = "none"
 
@@ -42,19 +64,18 @@ var questionList = [
 startEl.addEventListener('click', function startGame() {
     startEl.style.display = "none"
     answersEl.style.display = "initial"
-    countdown();
-    reset();
-    displayQuestion();
+    countdown()
+    reset()
+    displayQuestion()
 });
 
 
 function displayQuestion() {
     for (var i = 0; i < questionList.length; i++) {
-        // questionIndex = i;
+        
         var currentQuestion = questionList[questionIndex].question;
         var currentChoices = questionList[questionIndex].choices
         question.innerHTML = currentQuestion;
-
     }
 
     currentChoices.forEach(function (newItem) {
@@ -67,14 +88,15 @@ function displayQuestion() {
 
 
 function reset() {
-    // questionEl.innerHTML = ''
-    // answersEl.innerHTML = ''
+     questionEl.innerHTML = ''
+     answersEl.innerHTML = ''
 }
 //countdown from 76
 function countdown() {
-    //var penalty = 10;
-    setInterval(function () {
-        currentTime -= 1
+    
+    setInterval(function () {        
+            currentTime -= 1
+        
         timerEl.textContent = currentTime + ' seconds remaining'
 
         if (currentTime == 0) {
@@ -82,15 +104,25 @@ function countdown() {
             //endGame();
             clearInterval();
         }
+
     }, 1000)
 }
 
 function answerCheck(event) {
     var userAnswer = event.target
+
+    //correct answer
     if (questionList[questionIndex].answer === userAnswer.innerText) {
         console.log("correct")
     }
-    else (
-        console.log('incorrect')
-    )
+    //incorrect
+    else {
+        currentTime = currentTime - timePenalty
+        console.log("incorrect")
+    }
+    console.log(questionIndex)
+    questionIndex++
+    reset()
+    displayQuestion()
 }
+
