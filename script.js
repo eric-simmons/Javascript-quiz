@@ -4,10 +4,11 @@ var timerEl = document.getElementById("timer")
 var content = document.getElementById("content")
 
 var answersEl = document.getElementById("answers")
-var answer1 = document.getElementById("answer1")
-var answer2 = document.getElementById("answer2")
-var answer3 = document.getElementById("answer3")
-var answer4 = document.getElementById("answer4")
+// var answer1 = document.getElementById("answer1")
+// var answer2 = document.getElementById("answer2")
+// var answer3 = document.getElementById("answer3")
+// var answer4 = document.getElementById("answer4")
+var btnCreate = document.createElement('button')
 
 
 
@@ -20,27 +21,27 @@ var questionList = [
     {
         question: "Commonly used data types DO NOT include:",
         choices: ["strings", "booleans", "alerts", "numbers"],
-        answer: 2
+        answer: "alerts"
     },
     {
         question: "The condition in an if / else statement is enclosed within ____.",
         choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-        answer: 3
+        answer: "parentheses"
     },
     {
         question: "Arrays in Javascript can be used to store ____.",
         choices: ["numbers and strings", "other arrays", "booleans", "all of the above"],
-        answer: 4
+        answer: "all of the above"
     },
     {
         question: "String values must be enclosed within ____ when being assigned to variables.",
         choices: ["commas", "curly brackets", "quotes", "parenthesis"],
-        answer: 3
+        answer: "quotes"
     },
     {
         question: "A very useful tool for used during development and debugging for printing content to the debugger is:",
         choices: ["Javascript", "terminal / bash", "for loops", "console log"],
-        answer: 4
+        answer: "console log"
     },
 
 ];
@@ -53,6 +54,7 @@ startEl.addEventListener('click', function startGame() {
     countdown();
     reset();
     displayQuestion();
+    // displayAnswers();
 });
 
 
@@ -62,19 +64,47 @@ function displayQuestion() {
         var currentQuestion = questionList[questionIndex].question;
         var currentChoices = questionList[questionIndex].choices
         question.innerHTML = currentQuestion;
+
     }
-    console.log(currentQuestion)
-    console.log(questionIndex)
-    console.log(currentChoices)
+   
+currentChoices.forEach(function (newItem){
+    var listItem = document.createElement("button");
+    listItem.textContent = newItem;
+    content.appendChild(btnCreate);
+    answersEl.appendChild(listItem);
+    listItem.addEventListener("click", (answerCheck));
 
 
+})
 
-    answer1.innerHTML = currentChoices[0]
-    answer2.innerHTML = currentChoices[1]
-    answer3.innerHTML = currentChoices[2]
-    answer4.innerHTML = currentChoices[3]
+
+ 
 
 }
+
+// function displayAnswers() {
+//     for (var i = 0; i < questionList.choices[0]; i++) {
+
+//         var answerButton = document.createElement('button')
+//         answerButton.innerHTML = questionList.choices[i]
+//         answerButton.addEventListener('click', answerCheck)
+//         answersEl.appendChild(answerButton)
+
+//         console.log(answerButton)
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 
 function reset() {
     // questionEl.innerHTML = ''
@@ -96,12 +126,11 @@ function countdown() {
 }
 
 function answerCheck(event) {
-
     var userAnswer = event.target
-
-    if(questionList[questionIndex].answer === userAnswer.innerText){
-console.log("correct")
+    if (questionList[questionIndex].answer === userAnswer.innerText) {
+        console.log("correct")
     }
-
-
+    else(
+        console.log('incorrect')
+    )
 }
